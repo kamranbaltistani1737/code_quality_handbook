@@ -1,0 +1,95 @@
+# Documentation
+
+**Author: Mikkel Freltoft Krogsholm**    
+
+Code should be easy to understand. That means that it should be written to minimise the time it would take for someone else to understand it. You do that by thinking hard about the choices you take when you code and what and when to comment your code. The purpose of commenting is to help the reader know as much as you did when you wrote the code and everything was fresh in your memory. 
+
+
+## Help people understand
+I think that a good metric for how extensive your documentation should be is to minimize the time needed for someone to understand it and your code. If one more line of comments will increase that, then write it - if it will not, then leave it out. Comments also takes time to read, so if your comment is not helping people to understand your code better, then leave it out. Aim for your comments to have a high information-to-space ratio. But avoid "crutch comments" that make up for bad code (such as a bad function name) — fix the code instead. The best comment is clearly understandable code.
+
+
+A good idea is to look at your code from a fresh perspective whenever you can. Step back and look at it as a whole - is everything making sense and is there any way another coder or the future you will misunderstand the code. Because understandability trumphs speed and clever code everytime. Nothing dies faster that code that cannot be maintained. 
+One technique is to describe your code in plain English and use that description to help you write more natural code. This technique is deceptively simple, but very powerful. Looking at the words and phrases used in your description can also help you identify which subproblems to break off. If you cannot describe the problem or your design in words, something is probably missing or undefined. Getting a program (or any idea) into words can really force it into shape.
+
+You have a lot of ideas and thoughts in your head when you are coding. If they can help other coders understand your work then write them down as comments. These thoughts can be stuff like:
+
+* Insights about why code is one way and not another (“director commentary”). 
+* Flaws in your code, by using markers like TODO: or XXX:. 
+* The "story" for how a constant got its value. 
+* Put yourself in the reader’s shoes: Anticipate which parts of your code will make readers say “Huh?” and comment those. 
+* Document any surprising behavior an average reader would not expect. 
+* Use "big picture" comments at the file/class level to explain how all the pieces fit together. 
+* Summarize blocks of code with comments so that the reader doesn’t get lost in the details.
+
+## Make it look good
+Everyone prefers to read code that is aesthetically pleasing. Just like when you are reading a book - or this text for that matter. What is easier on the eyes is also easier to understand. By "formatting" your code in a consistent, meaningful way, you make it easier and faster to read. Here are some tips for formatting your code:
+
+* If multiple blocks of code are doing similar things, try to give them the same silhouette. 
+* Aligning parts of the code into "columns"" can make code easy to skim through. 
+* If code mentions A, B, and C in one place, don’t say B, C, and A in another. Pick a meaningful order and stick with it. 
+* Use empty lines to break apart large blocks into logical "paragraphs". In R for instance you are allowed as much white space as you want. Use it. 
+
+## Break down big blocks
+Breaking a large function into smaller ones is also a form of documentation. It documents the code by describing the new subfunction with a succinct name and it helps the reader identify the main “concepts” in the code. On an aside, it also makes it easier to writes tests and later debug your code. So be aggressive in breaking down complex logic wherever you see it. A simple technique for organizing your code is this: do only one task at a time. If you have code that is difficult to read, try to list all of the tasks it is doing. Some of these tasks might easily become separate functions (or classes). Others might just become logical "paragraphs" within a single function. The exact details of how you separate these tasks is not as important as the fact that they are separated. The hard part is accurately describing all the little things your program is doing.
+
+Write as little new code as possible. Each new line of code needs to be tested, documented, and maintained. Further, the more code in your codebase, the "heavier" it gets and the harder it is to develop in. You can avoid writing new lines of code by:
+
+* Eliminating nonessential features from your code and not overengineering 
+* Rethinking requirements to solve the easiest version of the problem that still gets the job done 
+* Staying familiar with standard libraries by periodically reading through their entire APIs
+
+## Document outside functions
+By outside function I mean document what your function is doing. So this is looking at your function from the outside and documenting it as a whole and not the individual parts of the function.
+
+### In R
+Use R's `roxygen2` frame work for thoroughly describing your function. You can see an example below:
+
+```{R}
+#' Add together two numbers.
+#' 
+#' @param x A number.
+#' @param y A number.
+#' @return The sum of \code{x} and \code{y}.
+#' @examples
+#' add(1, 1)
+#' add(10, 1)
+add <- function(x, y) {
+	x + y
+}
+```
+
+This means giving the function a proper title, telling what goes in to the function (`@param`) and what comes out (`@return`), and giving a few examples (`@examples`).
+
+You can read much more about documenting your code in R here in Hadley Wickhams book on writing R packages: [R packages: Object documentation](http://r-pkgs.had.co.nz/man.html)
+
+### In Python 
+
+TO DO
+
+
+## Document inside functions
+By inside functions I mean document what each piece of code inside your function is doing. 
+
+### In R
+In R you can write comments in your code using the `#` like this:
+
+```{R}
+add <- function(x, y) {
+	# This part adds the numbers together.
+  	x + y
+}
+```
+
+### In Python
+
+TO DO
+
+
+## Further reading
+**The art of readable code** [@boswell2011art]     
+**R packages: organize, test, document, and share your code** [@wickham2015r] [online version](http://r-pkgs.had.co.nz/)    
+**Tidyverse Styleguide: Code Documentation** [@tidy_code_doc] [online version](http://style.tidyverse.org/code-documentation.html)   
+
+## Udemy ressources
+No courses at the moment that covers this.

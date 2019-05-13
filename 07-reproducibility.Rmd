@@ -1,0 +1,114 @@
+# Reproducible data science
+
+This chapter is dedicated to the concept of reproducibility - that means creating code that can be deployed and run anywhere while at the same time giving the same results.
+
+This chapter is opinionated. It promotes a certain way of doing things, that is not the usual way of doing things for a data scientist. 
+
+When you are done with this chapter you will have an idea of how to setup an environment that is geared towards reproducible data science based on the concepts of containerization and docker.
+
+I recommend you do this for EVERY larger project you work on. You can spin up as many containers as you like so make it a habit of doing that when you are starting a new project. This way everything is documentable from the get go.
+
+## What is docker ?
+Docker (`r icon::fa("docker")`) is a computer program that performs operating-system-level virtualization also known as containerization. It is developed by Docker, Inc. Docker uses resource isolation to allow independent "containers" to run within a single OS, avoiding the overhead of starting and maintaining virtual machines (VMs).
+
+It creates the possibility to set up isolated and reproducible environments for your data science work that leverages the host-systems hardware, but does not interfere with other software programs on the host. This is the concept of using docker images and containers.
+
+A docker image is the boilerplate or template for a container. It can be created by using a Dockerfile that describes how the image is being build. This image, once build / compiled, can then be used to start new containers. 
+
+That means that you can write a Dockerfile that will create the exact environment that you need for your analysis. Once build you can use this image every time you need to run the given analysis. The processes will be totally isolated and software you run or update will not have any effect outside of the given container.
+
+You can also share this Dockerfile with colleagues, check it in to git, and compile and store the docker image in a docker repository like Dockerhub. Besides sharing the same data science and having the exact same infrastructure for a project, you can also deploy the containers to external servers when your analysis needs to go into full production -  and you can do that with minimum worry since you know it will work because everything is containerized.
+
+## A dockerized workflow
+This section will describe how you can set up a dockerized workflow. It will be focuses on running R in a docker container, but the concepts are easily transferable to Python or other languages.
+
+### The docker image
+
+#### Prebuild image
+
+To launch a docker container you need a docker image. This image can either be found on Dockerhub (or another docker repository) or created from a recipe of your own: a so called dockerfile.
+
+The [Rocker Project](https://hub.docker.com/u/rocker/) on Dockerhub hosts a whole bunch of ready-to-go docker images for R. There are images for everything from base R to Rstudio with a whole lot of packages preinstalled.
+
+For instance, if you want to get started with Rstudio running R version 3.5.0 with the Tidyverse already installed then you can get up an running with the following command:
+
+```
+docker run -d --name rstudio -p 7878:8787 rocker/tidyverse:3.5.0
+```
+
+If the image is not already available on your local computer then it will download it when you run the command.
+
+This is what the command means:    
+`docker`: tells the shell that we are executing a docker command     
+`run`: will start the image
+`-d`: will start the image in the background (meaning you can use your terminal after the command) and will not dispaly any logs.     
+`--name rstudio`: gives the container the name rstudio      
+`-p 8787:8787`: will map the internal port 8787 (Rstudio Servers default port) to the external port 7878. Meaning you can access it at localhost:7878     
+`rocker/tidyverse:3.5.0`: the image to be used is the tidyverse image from rocker version 3.5.0
+
+#### Custom image
+The above is all well and gut if the image you are using has all the depencies you need. If so, then it is a reproducible environment. If not, then you need to create your own image - for instance if you are installing extra packages.
+
+You create a custom image by building your own dockerfile. Below I am creating a dockerfile that bases it self on the `rocker/tidyverse:3.5.0` from above, but adds two new extra packages. Please notice that the file must be names **Dockerfile**.
+
+```
+FROM rocker/tidyverse:3.5.0
+
+# Install statsDK and realestateDK packages from CRAN
+RUN R -e "install.packages(c('statsDK', 'realestateDK'), repos = 'https://cloud.r-project.org/')"
+```
+
+Next you need to build this dockerfile into an image. You do this by running this command in the folder where the `Dockerfile` recides:
+
+```
+docker build -t my_custom_image:v1
+```
+
+This will create an image called `my_custom_image` with `v1` as the version number. You can change that to whatever you want.
+
+### Docker Compose
+Compose is a tool for defining and running multi-container Docker applications. It is also a way to create a "recipe" for starting up your data science environtment, even if you only have one container. 
+
+Below are two docker compose scripts for each of the two appraoches described above.
+
+#### Docker compose with prebuild image
+
+The compose script below runs a "service" called rstudio. This service starts up a container called `rstudio` based on the `rocker/tidyverse:3.5.0` image and exposes the 8787 port to 7878 just like we did above.
+```
+version: "3"
+
+services:
+
+  rstudio:
+    container_name: rstudio
+    image: rocker/tidyverse:3.5.0
+    ports:
+      - 7878:8787
+```
+
+#### Docker compose with custom built image
+
+The compose script below runs a "service" called rstudio. This service starts up a container called `rstudio` but unlike the compose script above, this one builds the image from the Dockerfile in the same folder (hence the .). It then exposes the 8787 port to 7878 just like the other one.
+
+```
+version: "3"
+
+services:
+
+  rstudio:
+    container_name: rstudio
+    build: .
+    ports:
+      - 7878:8787
+```
+
+### Commit to git
+With your dockerfiles and docker compose script you now have an entire description of your environment. You can commit these files to git along with the scripts you used in your analysis and a readme file that describes how to setup the environment and run the analysis.
+
+With this, you and everyone else should be able to reproduce your analysis anywhere at anytime.
+
+## Further reading
+[An introduction to Docker for reproducible research, with examples from the R environment](https://arxiv.org/abs/1410.0846)
+
+## Udemy ressources
+[Docker Mastery: The Complete Toolset From a Docker Captain](https://teradatalearning.udemy.com/docker-mastery/)

@@ -1,0 +1,74 @@
+# Profiling
+
+**Author: Mikkel Freltoft Krogsholm**
+
+This chapter is largely based on the [Profiling and benchmarking](http://adv-r.had.co.nz/Profiling.html) chapter in Hadley Wickhams [Advanced R](http://adv-r.had.co.nz/) book.
+
+Profiling is about making your code run as fast as needed by optimizing it to do just that. Optimizing code to make it run faster is an iterative process:
+
+* Find the biggest bottleneck (the slowest part of your code).
+* Try to eliminate it (you may not succeed but that’s OK).
+* Repeat until your code is “fast enough.”
+
+## Measuring performance 
+You can measure the performance of your code in both R and Python. 
+
+### Profiling in R
+R uses a fairly simple type called a sampling or statistical profiler. A sampling profiler stops the execution of code every few milliseconds and records which function is currently executing (along with which function called that function, and so on).
+
+You can use the [`profvis`](https://rstudio.github.io/profvis/) package to profile your R code:
+
+```{r, eval=FALSE}
+library(profvis)
+library(ggplot2)
+
+profvis({
+  g <- ggplot(diamonds, aes(carat, price)) + geom_point(size = 1, alpha = 0.2)
+  print(g)
+})
+```
+
+The `profvis()` call returns an htmlwidget, which by default opens a web browser.
+
+### Profiling in Python
+
+Missing
+
+## Improving performance
+Below are some language agnostic tips on how to make your code run faster. They apply to both to R and Python.
+
+### Are you using the right tool?
+First it makes sense to consider whether you are even using the right tool or if there is a better solution. Are you for instance reading in a lot of data and then doing operations on it that might as well be done in a data base like `postgresSQL`? Or are you trying to do advanced NLP on a lot of text data, where some of the heavy lifting might be better suited for `elasticsearch`? If you are in doubt the ask a fellow data scientist or data engineer if they have an idea for an alternative solution - it might just be what supercharges your code.
+
+### Has someone already solved the problem?
+Once you’ve profiled  your code, it’s natural to see what others have done. You are part of a large community, and it’s quite possible that someone has already tackled the same problem. If your bottleneck is a function in a package, it’s worth looking at other packages that do the same thing.
+
+Otherwise, the challenge is describing your bottleneck in a way that helps you find related problems and solutions. Knowing the name of the problem or its synonyms will make this search much easier. But because you don’t know what it’s called, it’s hard to search for it! By reading broadly about statistics and algorithms, you can build up your own knowledge base over time. Alternatively, ask others. Talk to your colleagues and brainstorm some possible names, then search on Google and stackoverflow. It’s often helpful to restrict your search to language (R or Python) related pages. With R for instance, when you use Google, try rseek. For stackoverflow, restrict your search by including the R tag, [R], in your search.
+
+Once you’ve found a solution that’s fast enough, then consider sharing your solution with the R or Python  community.
+
+### Parallelise
+Parallelisation uses multiple cores or machines in a cluster to work simultaneously on different parts of a problem. It doesn’t reduce the computing time, but it saves your time because you’re using more computing resources in parallel. 
+
+You can also use tools like Spark ([Sparklyr](http://spark.rstudio.com/) for R and [pySpark](http://spark.apache.org/docs/2.1.0/api/python/pyspark.html) for Python) to distribute your computations. But if you need to run "pure" R or Python, below are some ways you can do that in parallel.
+
+### Parallelization in R
+In R you can use the [`future`](https://github.com/HenrikBengtsson/future) package for parallelization. It aims at being a *Unified Parallel and Distributed Processing in R for Everyone*. 
+
+Below is an overview of the possibilities you have for parallelizing your code with future:
+
+| Name            | OSes        | Description
+|:----------------|:------------|:-----------------------------------------------------
+| _synchronous:_  |             | _non-parallel:_
+| `sequential`    | all         | sequentially and in the current R process
+| `transparent`   | all         | as sequential w/ early signaling and w/out local (for debugging)
+| _asynchronous:_ |             | _parallel_:
+| `multiprocess`  | all         | multicore, if supported, otherwise multisession
+| `multisession`  | all         | background R sessions (on current machine)
+| `multicore`     | not Windows | forked R processes (on current machine)
+| `cluster`       | all         | external R sessions on current, local, and/or remote machines
+| `remote`        | all         | Simple access to remote R sessions
+
+### Parallelization in Python
+
+Missing

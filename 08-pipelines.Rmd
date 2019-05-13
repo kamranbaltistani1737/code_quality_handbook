@@ -1,0 +1,11 @@
+# Data Science Pipelines
+
+openfaas
+
+streamsets
+
+https://streamsets.com/blog/getting-started-streamsets-data-collector-docker/
+
+
+
+

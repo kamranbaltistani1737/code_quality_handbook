@@ -1,0 +1,141 @@
+# Git and Version Control Best Practices
+
+**Author: Harsh Jain**         
+
+This chapter is about best practices in git. 
+
+Git is a version control system for tracking changes in computer files and coordinating work on those files among multiple people. It is primarily used for source code management in software development, but it can be used to keep track of changes in any set of files. 
+
+In Think Big we use it to keep track of the code we are developing - that includes everything from engineering to data science. Data science IS software development and you need to use git every time. That is why we have written this chapter on Git and Version Control Best Practices.
+
+## Commit Related Changes
+
+A commit should be a wrapper for related changes. For example, fixing two different bugs should produce two separate commits. Small commits make it easier for other team members to understand the changes and roll them back if something went wrong. With tools like the staging area and the ability to stage only parts of a file, Git makes it easy to create very granular commits.
+
+## Commit Often
+
+Committing often keeps your commits small and, again, helps you commit only related changes. Moreover, it allows you to share your code more frequently with others. That way it’s easier for everyone to integrate changes regularly and avoid having merge conflicts. Having few large commits and sharing them rarely, in contrast, makes it hard both to solve conflicts and to comprehend what happened.
+
+## Don’t Commit Half-Done Work
+
+You should only commit code when it’s completed. This doesn’t mean you have to complete a whole, large feature before committing. Quite the contrary: split the feature’s implementation into logical chunks and remember to commit early and often. But don’t commit just to have something in the repository before leaving the office at the end of the day. If you’re tempted to commit just because you need a clean working copy (to check out a branch, pull in changes, etc.) consider using Git’s “Stash” feature instead.
+
+## Test Before You Commit
+
+Resist the temptation to commit something that you “think” is completed. Test it thoroughly to make sure it really is completed and has no side effects (as far as one can tell). While committing half-baked things in your local repository only requires you to forgive yourself, having your code tested is even more important when it comes to pushing / sharing your code with others.
+
+## Write Good Commit Messages
+
+Begin your message with a short summary of your changes (up to 50 characters as a guideline). Separate it from the following body by including a blank line. The body of your message should provide detailed answers to the following questions: 
+
+* What was the motivation for the change? 
+* How does it differ from the previous implementation? 
+
+Use the imperative, present tense ("change", not "changed" or "changes") to be consistent with generated messages from commands like git merge.
+
+If you are using a requirement management/task tracking tool (like Jira) then always link your commit to a task, if you dont have a task then create one. For example (where `DAT-281` is the task):
+
+```
+DAT-281: This is a new feature
+
+This feature supports Kerberos,
+which will be used by JupyterHub.
+```
+
+If you are not using requirement management/task tracking tool then define some categories for commit like below
+
+
+* feat : feature implementation
+* fix : bug fix
+* chore : small change
+* doc : documentation change
+* build : build related change
+
+
+By doing that, we can easily filter relevant commit through category, e.g.
+
+```
+git log --all --grep='feat'
+```
+
+When you commit, use first line as summary and add detailed description in following paragraph. e.g.:
+
+```
+feat: this is a new feature
+
+This feature supports Kerberos,
+which will be used by JupyterHub.
+```
+
+## Version Control is not a Backup System
+
+Having your files backed up on a remote server is a nice side effect of having a version control system. But you should not use your version control system like it was a backup system. When doing version control, you should pay attention to committing semantically (see "related changes") – you shouldn’t just cram in files.
+
+## Use Branches
+
+Branching is one of Git’s most powerful features. Git provides quick and easy branching. Branches are the perfect tool to help you avoid mixing up different lines of development. You should use branches extensively in your development workflows: for new features, bug fixes, experiments, ideas…
+
+Below is an example of a git branching model. You can read more about it at this link [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
+
+![](http://nvie.com/img/git-model@2x.png)
+
+## Agree on a Workflow
+
+Git lets you pick from a lot of different workflows: long-running branches, topic branches, merge or rebase, git-flow, an so on. Which one you choose depends on a couple of factors: your project, your overall development and deployment workflows and (maybe most importantly) on your and your teammates’ personal preferences. **However you choose to work, just make sure to agree on a common workflow that everyone follows.**
+
+Read more here: [Workflow comparison](https://www.atlassian.com/git/tutorials/comparing-workflows)
+
+## Recommended git flow
+We have included a template for a recommended git flow that we suggest you use:
+
+1. branch out of the main branch: `git checkout -b '<feature_id>_title_description'`
+2. commit code: `git commit -m 'my message'`
+3. when done with code & testing:
+    1. checkout latest main branch version: `git checkout main_branch` and `git pull` 
+    2. rebase your branch on the main branch: `git checkout '<feature_id>_title_description'` and `git rebase main_branch`
+    3. after fixing the rebasing, merge with squash the feature branch into the main branch: `git checkout main_branch` and `git merge --squash '<feature_id>_title_description'`
+    4. push to upstream: `git push origin main_branch`
+    
+## Useful tools:
+1. gitk (branch history visualisation)
+2. nice git prompt (add this to your `~/.profile`)
+
+```
+GIT_PS1_SHOWCOLORHINTS="yes"
+source /usr/local/etc/bash_completion.d/git-completion.bash
+source /usr/local/etc/bash_completion.d/git-prompt.sh
+
+PS1='\n[\u@\h:\w$(__git_ps1)]\n$ ' 
+```
+
+## Do enforce standards
+
+Having standards is a best practice and will improve the quality of your commits, code-base, and probably enhance git-bisect and archeology functionality, but what is the use of a standard if people ignore them? Checks could involve regression tests, compilation tests, syntax/lint checkers, commit message analysis, etc. Of course, there are times when standards get in the way of doing work, so provide some method to temporarily disable the checks when appropriate.
+
+Traditionally, and in some people’s views ideally, you would enforce the checks on the client side in a pre-commit hook (perhaps have a directory of standard hooks in your repo and might ask users to install them) but since users will often not install said hooks, you also need to enforce the standards on the server side. Additionally, if you follow the commit-early-and-often-and-perfect-it-later philosophy that is promoted in this chapter, initial commits may not satisfy the hooks.
+
+Enforcing standards in a update hook on the server allows you to reject commits that do not follow the standards.
+
+Read more here: [Git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+
+## Miscellaneous “Do”s
+
+* Copy/move a file in a different commit from any changes to it
+* (Almost) Always name your stashes
+* Protect your bare/server repos against history rewriting
+
+## Miscellaneous “Don’t”s
+
+* Don’t commit anything that can be regenerated(for example binaries, object files, jars, .class,) from other things that were committed.
+* Don’t commit configuration files, specifically configuration files that might change from environment to environment or for any reasons
+
+## Further reading
+
+[Pro Git](https://git-scm.com/book/en/v2)     
+[Git for Computer Scientists](http://eagain.net/articles/git-for-computer-scientists/)     
+[Other resources](https://git-scm.com/doc)      
+[Git wiki](https://git.wiki.kernel.org/index.php/Main_Page)      
+
+## Udemy ressources
+
+[Git Complete: The definitive, step-by-step guide to Git](https://teradatalearning.udemy.com/git-complete/)

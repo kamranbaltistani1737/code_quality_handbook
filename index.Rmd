@@ -1,0 +1,31 @@
+--- 
+title: "Code Quality Handbook"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [bibliography.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is the handbook of code quality. It is a work in progress. You can find the files in github under: DataScience/Accelerators/Domains/Code_Quality "
+---
+
+# Why a Code Quality Handbook? {#intro}
+
+The aim of the Code Quality Handbook is to create a handbook, that you can use when you are starting on a project or include in a project you are already on.
+
+Its goal is to provide you with a good overview of what to do in a project and how to do it in order to maximise the quality of your code, and in that regard the project as well.
+
+We want to make sure that your code works every time, under every condition and is written in a way that makes sense to you and to others. Because if it doesn’t, then your code is and project will eventually run in to difficulties.
+
+* If you are doing research with a company then it means doing research that can be reproduced - every time.
+* If you are helping a client with their coding in a business setting, then it means writing production ready code. 
+* If you are just writing code alone in the dark it means writing code your future self will understand.
+
+The book is a work in progress and will evolve over time as new things get added and as we learn and improve on the different chapters.
+
+> The ambition of this book is quite big: to be a single point of reference when you start a new project.
+
+That means that we will try to cover everything from documentation, coding style to security and even ethics. We want to make good programmers out of good data scientists.
+
+And please contact us if anything is missing from this book.

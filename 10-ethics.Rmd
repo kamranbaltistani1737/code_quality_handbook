@@ -1,0 +1,20 @@
+# Ethics
+
+In Spiderman Peter Parker is told that "with great powers come great responsibilities." This is also true for data science superheroes. As the algorithms we develop and use get more powerful and capable and has their use becomes more pervasive, we have to think about how and for what we are using these new powers. 
+
+This dilemma is also dawning on national governments and large corporations. Some of them are now starting to write up and enforce guiding principles on how and for what AI should be used. See for instance Google's AI principles here: [https://blog.google/technology/ai/ai-principles/](https://blog.google/technology/ai/ai-principles/). 
+
+This chapter looks into some of the aspects that it is important to be aware of when designing and using AI.
+
+## Unfair bias
+Is the AI you are building reinforcing an old unfair bias or maybe even creating a new one? Our societies and cultures can have unfair biases regarding gender, race, sexuality or other traits that our AI might unintentionally inherit. If we are not on the lookout for this, we might create an AI and recreates or even reinforces these biases.
+
+## What is in the model
+Our models needs to be as explainable as possible. Especially if they are used to make decisions about real peoples lives and livelihood. We need to be able to look under the hood of the model. Both to see what is going on, but also so we can explain it to people who are affected by the model. Making a model accountable and interpretable to people not only makes us build better models (because we understand them better) but it also creates trust in the models we use (because the lay persons may better understand them).
+
+There are many tools out there now that aims at this (such as [LIME](https://www.oreilly.com/learning/introduction-to-local-interpretable-model-agnostic-explanations-lime)) and more and more are coming. 
+
+## Privacy by design
+What data are you using in your model and are you allowed to use it? These questions are especially revelant since GDPR has come into full effect. But they are also relevant from an ethical perspective. If we are using personal data then it is important that the persons know for what their data is being used and that they have given their consent. 
+
+If we are handling sensitive personal information (like medical history) it is especially important to be vigilant about privacy. Even if the user has given consent it is still very important to keep that data from spreading or leaking. A leak of someones very private information can lead to stigmatisation and discrimination of that person.

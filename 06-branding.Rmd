@@ -1,0 +1,98 @@
+# Branding your code
+
+It is important for your data science product to be used. If it is not used, then you might as well not have build it. This chapter is a little out of the ordinary, but it serves to get you thinking about how to maximise the use of the product you are now coding.
+
+This chapter builds on a blog post called ["Marketing for Data Science: A 7 Step ‘Go-to-Market’ Plan for Your Next Data Product"](https://medium.com/indeed-data-science/marketing-for-data-science-a-7-step-go-to-market-plan-for-your-next-data-product-60c034c34d55) published on medium in march of 2018.
+
+The blog post lists seven steps that will boost the launch of your data science product:
+
+1. Naming/branding
+2. Documentation
+3. Champion identification
+4. Timing
+5. Outreach
+6. Demoing
+7. Tracking
+
+Lets go through them one by one.
+
+## Naming your product
+
+The blog post suggests getting an MBA name: Memorable, Brandable, and Available. 
+
+### Memorable    
+
+Memorable names are often:
+
+**Pronounceable.** They start with a sharp sound and roll off the tongue. Research on English speakers suggests names with initial plosive consonants (p, t, k).
+
+**Plain.** They frequently repurpose common words (e.g. Apple), which help you combine rich mental images to your product. Be aware that discoverability through search may be limited when using common words. Slightly modifying the word can help overcome this (e.g. Lyft) as long as it is memorable.
+
+**Produced.** They can even be entirely new. Making up a new word is also a strategy (e.g. Google, Intel, Sony, or Garmin), but this requires substantially more initial seeding to establish the name. This may not be in line with the audience and timeframe of a(n internal) data product launch.
+
+### Brandable
+
+You want your new name to consistently represent the identity of the data product and reflect an overall positive attitude towards it. This way it can be incorporated seamlessly into the tool and documentation.
+
+#### Available
+
+Make sure no one else has called their data product the same thing. A quick google search should tell you whether that is the case.
+
+## Document your product
+
+We have already covered documenting code other places in this book, but the blog post also suggests going deep into detail about what problem your code solves. The reason for this is, that your want your code / new app to stand alone - to be understandable by others than you. 
+
+In code documentation we want you to make your code understandable for other coders. In the description about your product we want you to make its use understandable for future / potential users.  
+
+When writing your documentation, identify:
+
+* the main problem your data product is solving
+* key features and how they solve the problem
+* key definitions
+* key technical aspects that need to be explained
+
+Also, include your MBA name within the documentation to further establish the brand.
+
+## Identify power users
+
+Nothing spreads your code more than enthusiastic users - so called champions. 
+
+Seek out people who are affected by that problem you are trying to solve, and share your work with them. Also, look to your own team members who have participated in the build or know your work. These champions can recommend your work to others who would also appreciate the solution.
+
+These champions will both help spread your code by word-of-mouth and they will be able to answer user questions if you yourself is not around.
+
+## Time your launch
+
+Before each launch, consider the current business environment and time your launch accordingly. The moment you have finished working on your data product is not necessarily the best time to launch it. 
+
+For example, a product team may be in the middle of fixing a major bug and not ready for a new idea. Conversely or an upcoming related communication activity (e.g., blog post) could be an opportune time for a release with cross promotion.
+
+Look at other recent data products: when were they released and how were they received? Stakeholders can feel inundated with too many new dashboards and models and this may even contribute to ‘analysis paralysis.’
+
+## Cater to your audience
+
+If your champions are not happy, your product will wither and die. Developing positive working relationships with your champions and users is important for the early and long term success of your data product.
+
+Identify and reach your audience — those who will be using what you’ve made and can benefit from it. With this target audience in mind, comment on tickets, post on slack, chat, send emails to relevant groups, or go directly to talk to your audience.
+
+Use your audience’s preferred channels to communicate development progress, releases, and feedback. Establishing this communication will build early confidence in your data product. As iteration requests come in, you will have the opportunity to build this confidence with thoughtful acknowledgement of requests.
+
+## Demo it
+
+Only you can see the picture in your mind of how something works. Demoing is a powerful way to communicate what your new data product does. A great way to do this is by getting a minimum viable data product, a prototype, out early to your champions.
+
+Examples include creating a working application with minimal data, sketching a mockup of a dashboard, or taking screenshots. 
+
+These demos can be the starting point for recruiting the champions mentioned above and it is a great source of feedback for improving your code and app.
+
+## Track it
+
+You may love the theoretical foundation and implementation of your data product, but ultimately the success of a data product comes down to the user. 
+
+Long term marketing and retaining users depends on how much you can ensure reliability. Reliability is key to building your data product’s brand, your reputation and your technical credibility. This affects the marketing for your other current and future data products as well. It’s worth noting that this doesn’t mean perfection — it often just means dealing with problems quickly, fully and transparently.
+
+Monitor key metrics of your data product to see how it’s working and what its impact is. Actively seek and be responsive to feedback. Evaluate if your data product is achieving its intended objectives and determine if features can be improved to better suit your audience.
+
+If you are not achieving impact or the tool is not being used, revisit your initial assumptions about the problem you thought you were solving. Then, talk to your users (and non-users) about what might not be working. Be willing to destroy and start again, and create something even better with a new perspective. The initiative to iterate and improve your data product tools requires persistence but will raise the quality of your data products and enhance the rest of your marketing efforts.
+
+You can use analytics tools like [Google Analytics](https://www.google.com/analytics/) or the open source tool [Matomo](https://matomo.org/) for this.
