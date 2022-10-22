@@ -4,7 +4,8 @@
 
 This chapter is about best practices in git. 
 
-Git is a version control system for tracking changes in computer files and coordinating work on those files among multiple people. It is primarily used for source code management in software development, but it can be used to keep track of changes in any set of files. 
+Git is a version control system for tracking changes in computer files and coordinating work on those files among multiple people. It is primarily used for 
+source code management in software development, but it can be used to keep track of changes in any set of files. 
 
 In Think Big we use it to keep track of the code we are developing - that includes everything from engineering to data science. Data science IS software development and you need to use git every time. That is why we have written this chapter on Git and Version Control Best Practices.
 
